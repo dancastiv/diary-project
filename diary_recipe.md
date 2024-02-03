@@ -28,27 +28,6 @@ _Consider diagramming out the classes and their relationships. Take care to
 focus on the details you see as important, not everything. The diagram below
 uses asciiflow.com but you could also use excalidraw.com, draw.io, or miro.com_
 
-```
-┌────────────────────────────┐
-│ MusicPlayer                │
-│                            │
-│ - tracks                   │
-│ - add(track)               │
-│ - search_by_title(keyword) │
-│   => [tracks...]           │
-└───────────┬────────────────┘
-            │
-            │ owns a list of
-            ▼
-┌─────────────────────────┐
-│ Track(title, artist)    │
-│                         │
-│ - title                 │
-│ - artist                │
-│ - format()              │
-│   => "TITLE by ARTIST"  │
-└─────────────────────────┘
-```
 
 _Also design the interface of each class in more detail._
 
@@ -93,7 +72,7 @@ class DiaryEntry:
         # Parameters:
         #   title: string
         #   contents: string
-
+        pass
 
 class TodoList:
     def __init__(self):
@@ -125,6 +104,8 @@ class PhoneBook:
 
 
 
+
+
 ```
 
 ## 3. Create Examples as Integration Tests
@@ -141,19 +122,35 @@ diary = Diary()
 entry1 = DiaryEntry('Title', 'Contents')
 isinstance(entry1, DiaryEntry) => True
 
+# when two entries or moreentries are added to the diary, user can ask for either the whole diary or single entries by title
+
+diary = Diary()
+entry1 = DiaryEntry('Title', 'Contents')
+entry2 = DiaryEntry('Title2', 'These are more contents')
+entry3 = DiaryEntry('Another Title', 'And even more contents')
+diary.read_entry('Title2') => 'Title2: These are more contents
+
+# given a specific reading speed (wpm) and an amount of minutes, user will receive an entry to read
+diary = Diary()
+entry1 = DiaryEntry('Title', 'Contents')
+entry2 = DiaryEntry('Title2', 'These are more contents')
+entry3 = DiaryEntry('Another Title', 'And even more contents')
+diary.add(entry1)
+diary.add(entry2)
+diary.add(entry3)
+diary.find_entry_to_read(5, 1) => 'Title2: These are more contents'
+
+# when user adds multiple todo tasks to todo list, they can request the full list
+
+# when user adds a diary entry that includes a phone number, the number will be extracted and added to the phone book
+
+# given a phonebook with entries, user will receive a full phonebook
 
 
-"""
-Given a library
-When we add two tracks
-We see those tracks reflected in the tracks list
-"""
-library = MusicLibrary()
-track_1 = Track("Carte Blanche", "Veracocha")
-track_2 = Track("Synaesthesia", "The Thrillseekers")
-library.add(track_1)
-library.add(track_2)
-library.tracks # => [track_1, track_2]
+
+
+
+
 ```
 
 ## 4. Create Examples as Unit Tests
