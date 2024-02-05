@@ -1,5 +1,8 @@
 from lib.diary import *
 from lib.diary_entry import *
+from lib.todo import *
+from lib.todo_list import *
+from lib.contact_list import *
 import pytest
 
 # When an entry is added to the diary, check if it is of the DiaryEntry class. If not, raise exception
@@ -73,3 +76,27 @@ def test_select_entry_with_0_minutes():
         diary.select_entry_from_reading_time(200, 0)
     error = str(e.value)
     assert error == 'The WPM or the minutes available cannot be 0.'
+
+# when user adds multiple todo tasks to todo list, they can request the full list
+def test_show_todo_list():
+    diary = Diary()
+    todo_list = TodoList()
+    task1 = Todo('Murder Bran Stark')
+    task2 = Todo('Drink wine menacingly')
+    task3 = Todo('Make Aurane Waters master of ships')
+    todo_list.add(task1)
+    todo_list.add(task2)
+    todo_list.add(task3)
+    assert diary.show_todo_list(todo_list) == [task1, task2, task3]
+
+# when user adds a diary entry that includes a phone number, the number will be extracted and added to the phone book
+def test_phone_number_extracted_from_entry():
+    diary = Diary()
+    contacts = ContactList()
+    entry1 = DiaryEntry('Title', 'Contents')
+    entry2 = DiaryEntry('Title2', 'These is a phone number: 07712345678')
+    entry3 = DiaryEntry('Another Title', 'But 1122321 is not a phone number')
+    diary.add(entry1)
+    diary.add(entry2)
+    diary.add(entry3)
+    assert diary.show_contacts == ['07712345678']

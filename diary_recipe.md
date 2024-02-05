@@ -141,8 +141,26 @@ diary.add(entry3)
 diary.find_entry_to_read(5, 1) => 'Title2: These are more contents'
 
 # when user adds multiple todo tasks to todo list, they can request the full list
+diary = Diary()
+todo_list = TodoList()
+task1 = Todo('Murder Bran Stark')
+task2 = Todo('Drink wine menacingly')
+task3 = Todo('Make Aurane Waters master of ships')
+todo_list.add(task1)
+todo_list.add(task2)
+todo_list.add(task3)
+diary.show_todo_list() => [task1, task2, task3]
 
 # when user adds a diary entry that includes a phone number, the number will be extracted and added to the phone book
+diary = Diary()
+contacts = ContactList()
+entry1 = DiaryEntry('Title', 'Contents')
+entry2 = DiaryEntry('Title2', 'These is a phone number: 07712345678')
+entry3 = DiaryEntry('Another Title', 'But 1122321 is not a phone number')
+todo_list.add(task1)
+todo_list.add(task2)
+todo_list.add(task3)
+diary.show_contacts => ['07712345678']
 
 # given a phonebook with entries, user will receive a full phonebook
 

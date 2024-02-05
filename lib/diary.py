@@ -26,13 +26,12 @@ class Diary:
         readable_entries.sort(key=lambda entry: entry.count_words()) 
         return readable_entries[-1].format()
 
-    def show_todo_list(self):
-    # returns: Todo List (from todo class)
-        pass
+    def show_todo_list(self, todo_list):
+        return todo_list.incomplete()
 
     def show_contacts(self):
-    # returns Contact list (from contacts class)
-        pass
+        return None
+    
     def find_contacts(self):
         # if there is a contact in an entry, add to phone book
         pass
