@@ -92,11 +92,21 @@ def test_show_todo_list():
 # when user adds a diary entry that includes a phone number, the number will be extracted and added to the phone book
 def test_phone_number_extracted_from_entry():
     diary = Diary()
-    contacts = ContactList()
     entry1 = DiaryEntry('Title', 'Contents')
     entry2 = DiaryEntry('Title2', 'These is a phone number: 07712345678')
     entry3 = DiaryEntry('Another Title', 'But 1122321 is not a phone number')
     diary.add(entry1)
     diary.add(entry2)
     diary.add(entry3)
-    assert diary.show_contacts == ['07712345678']
+    assert diary.show_contacts() == ['07712345678']
+    
+# if there is more than one phone number in the list of entries added to the diary, all are returned
+def test_multiple_phone_numbers_extracted_from_entries():
+    diary = Diary()
+    entry1 = DiaryEntry('Title', 'To call my friend I dial 07923456789 which is very cool')
+    entry2 = DiaryEntry('Title2', 'These is a phone number: 07712345678')
+    entry3 = DiaryEntry('Another Title', 'But 1122321 is not a phone number')
+    diary.add(entry1)
+    diary.add(entry2)
+    diary.add(entry3)
+    assert diary.show_contacts() == ['07923456789', '07712345678']

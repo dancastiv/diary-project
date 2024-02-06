@@ -1,12 +1,15 @@
 from lib.diary_entry import *
+from lib.contact_list import *
 
 class Diary:
     def __init__(self):
         self.all_diary_entries = []
+        self.contact_list = ContactList()
 
     def add(self, entry): # run find_contacts here
         if not isinstance(entry, DiaryEntry):
             raise Exception('This is not a Diary Entry object.')
+        self.contact_list.add_contact(entry)
         self.all_diary_entries.append(entry)
 
     def read_all(self):
@@ -30,8 +33,5 @@ class Diary:
         return todo_list.incomplete()
 
     def show_contacts(self):
-        return None
+        return self.contact_list.contacts
     
-    def find_contacts(self):
-        # if there is a contact in an entry, add to phone book
-        pass
